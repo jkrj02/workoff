@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+*.bak
+*.swp
+
+# PyInstaller
+/dist/
+/build/
+*.spec
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+/target/
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Qt
+*.qrc
+*.pyc
+*.pyo
+
+# 其他
+*.orig
+*.rej
+
+# 忽略打包源码和配置
+pyqt_frontend/main_embedded.py
