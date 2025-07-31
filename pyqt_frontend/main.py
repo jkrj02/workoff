@@ -44,8 +44,8 @@ class TimerWindow(QWidget):
         # 背景透明度状态
         self.background_opacity = 0.0
 
-        self.label = QLabel("00小时00分钟")
-        self.label.setStyleSheet("color: rgb(42,157,143); font-size: 22px; font-weight: bold;")
+        self.label = QLabel("00 : 00")
+        self.label.setStyleSheet("color: rgb(42,157,143); font-size: 36px; font-weight: bold;")
         self.label.setAlignment(Qt.AlignCenter)  # 文字居中
         self.progress = QProgressBar()
         self.progress.setFixedHeight(16)
@@ -64,7 +64,7 @@ class TimerWindow(QWidget):
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.label)
-        vbox.addSpacing(20)  # 增加文字和进度条之间的间距
+        vbox.addSpacing(15)  # 增加文字和进度条之间的间距
         vbox.addWidget(self.progress)
         vbox.addStretch()
         vbox.setContentsMargins(24, 24, 24, 8)  # 减少底部边距，让内容更靠近底部
@@ -73,7 +73,7 @@ class TimerWindow(QWidget):
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_time)
-        self.timer.start(1000)
+        # self.timer.start(1000)
         self.update_time()
 
     def paintEvent(self, event):
@@ -133,9 +133,17 @@ class TimerWindow(QWidget):
             data = resp.json()
             left = int(data['left'])
             percent = float(data['percent'])
+            info(f"{percent}%")
+            
+            # 检查倒计时是否结束（当剩余时间为0分钟时立即退出）
+            if percent == 1.0:
+                info("倒计时结束，自动退出")
+                self.close_timer()
+                return
+            
             h = left // 60
-            m = left % 60
-            self.label.setText(f"{h:02d}小时{m:02d}分钟")
+            m = left % 60 + 1
+            self.label.setText(f"{h:02d} : {m:02d}")
             self.progress.setValue(int(percent * 100))
             info(f"倒计时更新: 剩余 {h:02d}:{m:02d}, 进度 {percent*100:.1f}%")
         except Exception as e:
@@ -204,6 +212,8 @@ class MainWindow(QMainWindow):
             return
         self.hide()
         self.timer_window.show()
+        # 启动定时器
+        self.timer_window.timer.start(1000)
         self.timer_window.update_time()
 
     def show_main(self):

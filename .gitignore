@@ -23,6 +23,7 @@ __pycache__/
 *.war
 *.ear
 /backend/target/
+/backend/backend/target/
 
 # IDE
 .vscode/
