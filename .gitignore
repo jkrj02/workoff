@@ -9,8 +9,8 @@ __pycache__/
 *.swp
 
 # PyInstaller
-/dist/
-/build/
+/pyqt_frontend/dist/
+/pyqt_frontend/build/
 *.spec
 *.exe
 *.dll
@@ -22,7 +22,7 @@ __pycache__/
 *.jar
 *.war
 *.ear
-/target/
+/backend/target/
 
 # IDE
 .vscode/
